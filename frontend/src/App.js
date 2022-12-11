@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FooterComponent from "./components/FooterComponent";
 import HeaderComponent from "./components/HeaderComponent";
 
+//user components:
+import RoutesWithUserChatComponent from "./components/user/RoutesWithUserChatComponent";
+
 //publicly available pages:
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -30,21 +33,27 @@ function App() {
     <BrowserRouter> 
       <HeaderComponent />
       <Routes>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/product-detail" element={<ProductDetailsPage />} />
-          <Route path="/product-detail/:id" element={<ProductDetailsPage />} />
-          <Route path="/product-list" element={<ProductListPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route element={<RoutesWithUserChatComponent />}>
+              {/* publicly available routes: */}
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/product-detail" element={<ProductDetailsPage />} />
+              <Route path="/product-detail/:id" element={<ProductDetailsPage />} />
+              <Route path="/product-list" element={<ProductListPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="*" element="Page not exists. Error 404."/>
+          </Route>
 
+          {/* user protected routes */}
           <Route element={<ProtectedRoutesComponent  admin={false}/>}>
-            <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
-            <Route path="/user/order-details" element={<UserOrderDetailsPage />} />
-            <Route path="/user/my-orders" element={<UserOrdersPage />} />
-            <Route path="/user" element={<UserProfilePage />} />
+              <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
+              <Route path="/user/order-details" element={<UserOrderDetailsPage />} />
+              <Route path="/user/my-orders" element={<UserOrdersPage />} />
+              <Route path="/user" element={<UserProfilePage />} />
           </Route>
  
+          {/* admin protected routes */}
           <Route element={<ProtectedRoutesComponent admin={true} />}>
             <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
             <Route path="/admin/charts" element={<AdminChartsPage />} />
@@ -57,9 +66,6 @@ function App() {
             <Route path="/admin/users" element={<AdminUsersPage />} />
           </Route>
 
-
-
-          <Route path="*" element="Page not exists. Error 404."/>
           {/* <Route path="/cart" component={CartPage} /> used in previous version of react-router-dom */}
       </Routes>
       <FooterComponent />
