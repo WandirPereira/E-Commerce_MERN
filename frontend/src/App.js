@@ -1,4 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+//components:
+import FooterComponent from "./components/FooterComponent";
+import HeaderComponent from "./components/HeaderComponent";
+
+//publicly available pages:
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -23,6 +28,7 @@ import AdminUsersPage from "./pages/admin/AdminUsersPage";
 function App() {
   return (
     <BrowserRouter> 
+      <HeaderComponent />
       <Routes>
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -56,6 +62,7 @@ function App() {
           <Route path="*" element="Page not exists. Error 404."/>
           {/* <Route path="/cart" component={CartPage} /> used in previous version of react-router-dom */}
       </Routes>
+      <FooterComponent />
     </BrowserRouter> 
   );
 }
